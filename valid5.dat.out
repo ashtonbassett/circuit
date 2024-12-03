@@ -1,3 +1,4 @@
-Usage: $ java CircuitTracer <-s | -q> <-c | -g> <filename>
-Where -s chooses a stack state and -q chooses a queue state
-And -c chooses for a console output and -g chooses a GUI output
+O 1 2 
+O T T 
+O O O 
+

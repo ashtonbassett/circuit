@@ -1,6 +1,7 @@
 import java.awt.Point;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -50,7 +51,7 @@ public class CircuitBoard {
 		try {
 			ROWS = fileScan.nextInt();
 			COLS = fileScan.nextInt();
-		} catch (InvalidFileFormatException e) {
+		} catch (InputMismatchException e) {
 			fileScan.close();
 			throw new InvalidFileFormatException("First row of the file must contain two integers");
 		}
@@ -70,7 +71,7 @@ public class CircuitBoard {
 				if (character.length() != 1 || ALLOWED_CHARS.indexOf(character) == -1) {
 					lineScanner.close();
 					fileScan.close();
-					throw new InvalidFileFormatException("Invalid character at row " + countRows + " and at col"
+					throw new InvalidFileFormatException("Invalid character at row " + countRows + " and at column "
 							+ countCols + ". The following character: " + character +
 							" is not valid. Valid characters are O, X, 1, and 2. ");
 				} else if (ALLOWED_CHARS.indexOf(character) == 2) {
@@ -85,7 +86,7 @@ public class CircuitBoard {
 				} catch (ArrayIndexOutOfBoundsException e) {
 					lineScanner.close();
 					fileScan.close();
-					throw new ArrayIndexOutOfBoundsException("Column number is too great");
+					throw new InvalidFileFormatException("Column number is too great");
 				}
 
 				if (character.charAt(0) == START) {
@@ -104,19 +105,22 @@ public class CircuitBoard {
 								"Too many END values. There can only be one \"2\" character in the file.");
 					}
 					endingPoint = new Point(countRows, countCols);
+
 				}
 				countCols++;
 
-				if (countCols != COLS) {
-					lineScanner.close();
-					fileScan.close();
-					throw new InvalidFileFormatException("Incorrect amount of columns");
-				}
-
-				countCols = 0;
-				countRows++;
-				lineScanner.close();
 			}
+
+			if (countCols != COLS) {
+				lineScanner.close();
+				fileScan.close();
+				throw new InvalidFileFormatException("Incorrect amount of columns");
+			}
+
+			countCols = 0;
+			countRows++;
+			lineScanner.close();
+		}
 			if (startingPoint == null) {
 				fileScan.close();
 				throw new InvalidFileFormatException("There is no starting point in the file");
@@ -127,7 +131,7 @@ public class CircuitBoard {
 				fileScan.close();
 				throw new InvalidFileFormatException("Incorrect amount of rows");
 			}
-		}
+		
 
 		fileScan.close();
 	}
