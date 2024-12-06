@@ -121,17 +121,16 @@ public class CircuitBoard {
 			countRows++;
 			lineScanner.close();
 		}
-			if (startingPoint == null) {
-				fileScan.close();
-				throw new InvalidFileFormatException("There is no starting point in the file");
-			} else if (endingPoint == null) {
-				fileScan.close();
-				throw new InvalidFileFormatException("There is no ending point in the file");
-			} else if (countRows != ROWS) {
-				fileScan.close();
-				throw new InvalidFileFormatException("Incorrect amount of rows");
-			}
-		
+		if (startingPoint == null) {
+			fileScan.close();
+			throw new InvalidFileFormatException("There is no starting point in the file");
+		} else if (endingPoint == null) {
+			fileScan.close();
+			throw new InvalidFileFormatException("There is no ending point in the file");
+		} else if (countRows != ROWS) {
+			fileScan.close();
+			throw new InvalidFileFormatException("Incorrect amount of rows");
+		}
 
 		fileScan.close();
 	}

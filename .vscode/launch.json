@@ -9,14 +9,17 @@
             "type": "java",
             "name": "Current File",
             "request": "launch",
-            "mainClass": "${file}"
+            "mainClass": "${file}",
+            "args": "${command:SpecifyProgramArgs}"
         },
         {
             "type": "java",
             "name": "CircuitTracer",
             "request": "launch",
             "mainClass": "CircuitTracer",
-            "projectName": "circuit_c2fbb27f"
+            "projectName": "circuit_c2fbb27f",
+            "args": "${command:SpecifyProgramArgs}"
+
         },
         {
             "type": "java",

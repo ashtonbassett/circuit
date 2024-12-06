@@ -1,0 +1,71 @@
+****************
+* Circuit 
+* CS 221
+* 06 December 2024
+* Ashton Bassett
+****************
+
+OVERVIEW:
+
+    Circuit reads a file and uses recursion to find all of the possible paths from the starting point; "1" to the ending point; "2."
+    It uses the command line to decide if the state with either be a stack or queue, as well as if the output will be displayed
+    in the console or with a GUI. The program returns the shortest possible path solution. 
+
+INCLUDED FILES:
+
+    CircuitBoard.java - Represents a 2D circuit board as read from an input file.
+    CircuitTracer.java - Searches for the shortest path and displays the results
+    CircuitTracerTester.java - Runs tests to ensure CircuitTracer works properly, This isn't included in the submission, but I used it to complete my project
+    InvalidFileFormatException.java - An exception that returns if the file format is incorrect
+    OccupiedPositionException.java - An exception that returns if a spot has already been traced or is closed
+    Storage.java - A container for storing elements of type T in one of several possible underlying data structures.
+    TraceState.java - Represents a potential path through a CircuitBoard - a search state for CircuitTracer.
+    launch.json - used to run sample command line arguments
+    .class files help complie the program for the CircuitTracerTester tests
+    Any other file in the program are test files created by CircuitTracerTester
+
+COMPILING AND RUNNING:
+
+    From the directory containing all source files, compile the
+    driver class (and all dependencies) with the command:
+
+    $ javac CircuitTracer.java
+
+    Run the compiled class file with the command:
+
+    $ java CircuitTracer <-s|-q> <-c|-g> <filename>
+
+    Usage: where "-s" chooses a stack state, "-q" chooses a queue state,
+    "-c" chooses a console output, "-g" chooses a GUI output if implemented,
+    and filename is the file to be read 
+
+PROGRAM DESIGN AND IMPORTANT CONCEPTS:
+
+    CircuitTracer is the main class in this program. It takes command line arguments as labeled above in the Compiling and Running section. In CircuitTracer, a TraceState object array list, a CircuitBoard object, and a TraceState Storage object are created and intialized. The CircuitTracer class will return a usage message if the command line arguments aren't correct, or if the file named in the argument is either non existent or in an incorrect format. If the command line arguments are valid though, the class finds the starting position of the file and executes brute force recursion to find every possible path that leads to the the ending point. It does this by checking if every point surrounding the currentState is open or not. If the spot is opne, it gets added to the stack or queue. This contintues until all possible paths have been found. The TraceState object array list contains the shortest paths, and once the main class is done, it will return them to either the console or the GUI. The paths are identified with the character 'T.'
+
+    CircuitBoard creates the board being read from the file. Once a file is read and found to exist, the constructor parses through the file, initializing the starting and ending point, as well as noting if spots are open or closed. The constuctor also runs tests to ensure the file has a correct format. That is it ensures the file only has one starting point and ending point, as well that the only other characters in the file are 'X' and 'O.' Other methods in CircuitBoard are used in the recursive process in CircuitTracer, checking if spots are open, as well as makeTraces.
+
+    Storage is a class used to either make the data structure a stack or a queue. A stack is a data stucture that is first in last out. This means when something it added to the stack, it takes priority over the items added before it. A queue is a first in first out data structure. This means that the items added first in the queue take priority to the ones added after.
+
+    TraceState is a class that is used to represent potential paths on the board. It is responsible for changing Points on the board to 'T' to help represent the path being stored.
+
+    I did not design most of these classes. Additionally, I didn't decide how the classes interacted with each other. I wouldn't change anything about the program though as it does what it needs to do efficiently and effectively. 
+
+TESTING:
+
+    I initally started off my just creating the CircuitBoard class to run the constructor tests. I didn't have too many issues coding the constructor in CircuitBoard. When I ran the CircuitTracerTester I failed a few tests because I was catching the wrong exceptions. To fix this, I caught the throw exception and threw the InvalidFileFormatException that was asked to be thrown.
+
+    I then moved on to CircuitTracer. I once again coded the entire thing before running any tests. My biggest issue was with the recursive algorith. I initially forgot to set the x and y coordinates to the starting value, so it was failing the tests. Once I added the starting value and added the adjacent opened Points to the StateStore, I was passing most tests.
+
+    The biggest issue I had was the tests couldn't compile CircuitTracer when the test included "java CircuitBoard." To fix this I ran the file on a seperate terminal which created the .class files which allowed for my program to run smoothly and compile and pass all 86 tests.
+
+    The program can handle bad inputs and is idiot proof. If somone is to enter an argument that isn't valid, or too many arguments, the program returns a usage statement.
+
+DISCUSSION:
+
+    As said in the testing section, the biggest issue I ran into was the compiling of CircuitTracer for some of the tests. My program itself would run fine when the tests were just argument, but couldn't pass any tests that tried compiling CircuitTracer on their own. This problem took me two days to figure out, which honestly happened by luck. To solve this problem I ran the command line arguments stated in the compiling section and as a result, it added the .class files to my program. I can only assume this works becuse the .class files allow the program to seperately compile the classes, as if it were its own terminal seperate from VS Code. All of the other issues I encountered were small errors in my code that took minutes to solve.
+
+    I didn't find much challenging except for figuring out why the class couldn't compile. I wouldn't say anything clicked for me throughout the process because I solved my issue trying to prove that my class in fact did work to my friend. I can say though that once I passed all of the tests, I could appreciate how all of the files worked together to brute force the solution.
+
+    
+
